@@ -58,7 +58,7 @@
         <h3 class="Math">Modify</h3>
         <p>
           \(p_{ij}\) denote the degree of injury, a certain ratio,  when type &nbsp;\(i\) weapon attack type &nbsp;\(j\) target.
-          Add to new variable, \(SV_{j}\), means the sum of life-ratio of &nbsp;\(j\) target.<br>
+          Add to new variable, \(SV_{j}\), means the sum of remainder-life-ratio of type &nbsp;\(j\) targets.<br>
           On the other hand, we need add the concept of aggressivity of targets to object function.
         </p>
         <h3 class="Math">Mathematical definition</h3>
@@ -81,39 +81,28 @@
         </p>        
         <br>
         <h3 class="Math">Example</h3>
+        <p>
+          If a battle breaks out at this very moment. <br>
+          We have 6 marines, 3 firebats and 1 goliath and enemy has 5 zerglings and 3 hydralisk. More information is showed by following table:
+        </p>
         <div class="ui grid">
           <div class="eight wide column">
             <table class="ui celled table">
               <thead>
-                <tr>
-                  <th>Weapon Type</th>
-                  <th>\(Zergling\)<br>\(V_{1} = 5 ,\quad SV_{1} = 500\%\)</th>
-                  <th>\(Hydralisk\)<br>\(V_{2} = 3 ,\quad SV_{2} = 300\%\)</th>
+                <tr><th>Weapon Type</th><th>\(Zergling\)<br>\(V_{1} = 5 ,\quad SV_{1} = 500\%\)</th><th>\(Hydralisk\)<br>\(V_{2} = 3 ,\quad SV_{2} = 300\%\)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>\(Marine \)<br>\(W_{1} = 6 \)</td>
-                  <td>17.1%</td>
-                  <td>7.5%</td>
-                </tr>
-                <tr>
-                  <td>\(Firebat \)<br>\(W_{2} = 3 \)</td>
-                  <td>45.7%</td>
-                  <td>20.0%</td>
-                </tr>
-                <tr>
-                  <td>\(Goliath \)<br>\(W_{3} = 1 \)</td>
-                  <td>28.6%</td>
-                  <td>12.5%</td>
-                </tr>
+                <tr><td>\(Marine \)<br>\(W_{1} = 6 \)</td><td>17.1%</td><td>7.5%</td></tr>
+                <tr><td>\(Firebat \)<br>\(W_{2} = 3 \)</td><td>45.7%</td><td>20.0%</td></tr>
+                <tr><td>\(Goliath \)<br>\(W_{3} = 1 \)</td><td>28.6%</td><td>12.5%</td></tr>
               </tbody>
             </table>
           </div>
           <div class = "eight wide column"></div>
         </div>
       <p>
-         \(And \ suppose \ dd_{1} = 5 ,\quad dd_{2} = 8 \)<br>
+        And suppose \(dd_{1} = 5 ,\ dd_{2} = 8 \)<br><br>
         We have,
       </p>
       <div style="width: 70%;">
