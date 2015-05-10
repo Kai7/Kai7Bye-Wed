@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>RTS-Game AI </title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.2.0/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="Kai7-Mathematics.css">
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+  </head>
+  <body>
+    <div class="ui grid">
+      <div class="two wide column"></div>
+      <div class="twelve wide column" style="background-color: #FFFFFF;">
+        <h1 class="Math">Introduce to WTA problem</h1>
+        <hr class="one">
+        <p>WTA, Weapon target assignment </p>
+        
+        <h3 class="Math">Problem</h3>
+        <p>
+          There are a number kinds of weapons and targets. <br>
+          Suppose there are \(W_{i}\) available weapons of type &nbsp;\(i\) , for \( i = 1, ... , m\). 
+          Similarly, there are \(V_{j}\) targets of type &nbsp;\(j\) , for \( j = 1, ... , n\). <br>
+          Any of the weapons can be assigned to any target. 
+          In addition, type &nbsp;\(i\) weapon has a probability of destroying type &nbsp;\(j\) target, 
+          and the probability is given by &nbsp;\(p_{ij}\). 
+        </p>
+        <h3 class="Math">Mathematical definition</h3>
+        <p>The WTA problem is often formulated as the following <span style="font-weight: bold;">nonlinear integer programming problem</span>:</p>
+        <div class="left50" >
+          $$ \min \sum_{j=1}^{n}(V_{j}\prod_{i=1}^{m}{(1-p_{ij})}^{x_{ij}}) $$
+        </div>
+        <p>subject to the constraints</p>
+        <div class="left50" >
+          $$ \sum_{j=1}^{n}x_{ij} \leq W_{i} , \ for \ i = 1, ... , m. $$
+          $$ x_{ij} \geq 0 \ and \ integer \ for \ i = 1, \dots , m \ and \ j = 1, \dots , n. $$
+        </div>
+        <p>
+          Where the variable \(x_{ij}\) represents the number of that  weapons of type &nbsp;\(i\) assign to targets of type &nbsp;\(j\).
+        </p>
+        <br>
+        <br>
+
+        <h1 class="Math">Transformation </h1>
+        <hr class="one">
+        <h3 class="Math">Issue</h3>
+        <p>There are some different views between original problem and our battle. </p>
+        <ul>
+          <li>The targets don't have aggressivity, so we consider only survival value of targets. </li>
+          <li>Our RTS-Game does not have the probability of destroying, but we has the degree of injury. </li>
+          <li>There is no concept of distance. </li>
+          <li>etc.</li>
+        </ul> 
+        <p>
+          In order to adapt previous problem to the situation in our battle, 
+          we need to modify the object function and constraints.
+        </p>
+        <h3 class="Math">Modify</h3>
+        <p>
+          \(p_{ij}\) denote the degree of injury, a certain ratio,  when type &nbsp;\(i\) weapon attack type &nbsp;\(j\) target.
+          Add to new variable, \(SV_{j}\), means the sum of life-ratio of &nbsp;\(j\) target.<br>
+          On the other hand, we need add the concept of aggressivity of targets to object function.
+        </p>
+        <h3 class="Math">Mathematical definition</h3>
+        <p>After modifying our WTA problem, we obtain a new <span style="font-weight: bold;">linear integer programming problem:</span></p>
+        <div class="left50" >
+          $$ \min \sum_{j=1}^{n}(dd_{j}(SV_{j}-\sum_{i=1}^{m}p_{ij}x_{ij})) $$
+        </div>
+        <p>subject to</p>
+        <div class="left50" >
+          $$ \sum_{j=1}^{n}x_{ij} \leq W_{i} , \ for \ i = 1, ... , m. $$
+          $$ x_{ij} \geq 0 \ and \ integer \ for \ i = 1, \dots , m \ and \ j = 1, \dots , n. $$
+        </div>
+        <p>More stringent constraints</p>
+        <div class="left50" >
+          $$ \sum_{i=1}^{m}p_{ij}x_{ij} \leq SomeRatio_{j} , \ for \ j = 1, ... , n. $$
+        </div>
+
+        <p><span class="MathNote">Note : </span> 
+          The effect of the value \(SomeRatio\) is for avoiding \(V_{j}-\sum_{i=1}^{m}p_{ij}x_{ij}\) become a negative large-number.
+        </p>        
+        <br>
+        <h3 class="Math">Example</h3>
+        <div class="ui grid">
+          <div class="eight wide column">
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>Weapon Type</th>
+                  <th>\(Zergling\)<br>\(V_{1} = 5 ,\quad SV_{1} = 500\%\)</th>
+                  <th>\(Hydralisk\)<br>\(V_{2} = 3 ,\quad SV_{2} = 300\%\)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>\(Marine \)<br>\(W_{1} = 6 \)</td>
+                  <td>17.1%</td>
+                  <td>7.5%</td>
+                </tr>
+                <tr>
+                  <td>\(Firebat \)<br>\(W_{2} = 3 \)</td>
+                  <td>45.7%</td>
+                  <td>20.0%</td>
+                </tr>
+                <tr>
+                  <td>\(Goliath \)<br>\(W_{3} = 1 \)</td>
+                  <td>28.6%</td>
+                  <td>12.5%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class = "eight wide column"></div>
+        </div>
+      <p>
+         \(And \ suppose \ dd_{1} = 5 ,\quad dd_{2} = 8 \)<br>
+        We have,
+      </p>
+      <div style="width: 70%;">
+        $$ \min \quad 5 \cdot (5.00 - 0.171x_{11} - 0.457x_{21} - 0.286x_{31}) 
+        + 8 \cdot (3.00 - 0.075x_{12} - 0.2x_{22} - 0.125x_{32})$$
+      </div>
+      <p>subject to</p>
+      <div class="left50">
+        $$
+        x_{11} + x_{12} \leq 6 \\
+        x_{21} + x_{22} \leq 3 \\
+        x_{31} + x_{32} \leq 1 
+        $$
+        $$
+        x_{ij} \geq 0 \ and \ integer \quad \forall \ 1 \leq i \leq m \ ,and \ 1 \leq j \leq n 
+        $$
+        $$
+        0.171x_{11} + 0.457x_{21} + 0.286x_{31} \leq SomeRatio_{1} \\
+        0.075x_{12} + 0.2x_{22} + 0.125x_{32} \leq SomeRatio_{2} 
+        $$
+      </div>
+      <div class="two wide column"></div>
+    </div>
+  </body>
+</html>

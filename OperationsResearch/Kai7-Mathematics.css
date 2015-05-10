@@ -1,0 +1,39 @@
+h1.Math {
+    font-size: 220%;
+    font-family: "Times New Roman", Times, serif;
+    padding: 0px;
+    border: 0px;
+    margin: 15px 0px 0px;
+}
+
+h3.Math {
+    font-size: 160%;
+    font-family: "Times New Roman", Times, serif;
+    padding: 0px;
+    border: 0px;
+    margin: 10px 0px 5px;
+}
+
+hr.one { 
+    border: 0; 
+    height: 0; 
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
+    margin: 0px;
+}
+
+div.left50 {
+    /*background-color: rgba(0, 0, 0, 0.1);*/
+    width: 50%;
+}
+
+.test {
+    background-color: lightgrey;
+    border: solid navy;
+}
+
+span.MathNote {
+    font-size: 120%;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+}
