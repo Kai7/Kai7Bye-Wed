@@ -32,6 +32,15 @@ div.left50 {
     border: solid navy;
 }
 
+div.MathUpdate {
+    font-family: "Times New Roman", Times, serif;
+    padding: 2px;
+    border: 0px;
+    margin: 15px 0px 0px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 1);
+}
+
 span.MathNote {
     font-size: 120%;
     font-family: "Times New Roman", Times, serif;
