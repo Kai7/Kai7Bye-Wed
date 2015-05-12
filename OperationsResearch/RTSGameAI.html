@@ -2,6 +2,7 @@
 <html lang="en-US">
   <head>
     <title>RTS-Game AI </title>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.2.0/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Kai7-Mathematics.css">
     <script type="text/javascript"
@@ -26,6 +27,7 @@
           In addition, type &nbsp;\(i\) weapon has a probability of destroying type &nbsp;\(j\) target, 
           and the probability is given by &nbsp;\(p_{ij}\). 
         </p>
+        <img src="img/WTAProblem_01.svg" style="width: 550px; height: 150px;">
         <h3 class="Math">Mathematical definition</h3>
         <p>The WTA problem is often formulated as the following <span style="font-weight: bold;">nonlinear integer programming problem</span>:</p>
         <div class="left50" >
@@ -59,13 +61,14 @@
         <h3 class="Math">Modify</h3>
         <p>
           \(p_{ij}\) denote the degree of injury, a certain ratio,  when type &nbsp;\(i\) weapon attack type &nbsp;\(j\) target.
-          Add to new variable, \(SV_{j}\), means the sum of remainder-life-ratio of type &nbsp;\(j\) targets.<br>
-          On the other hand, we need add the concept of aggressivity of targets to object function.
+          Every unit of enemy are a kind of type target, and we define the value of type &nbsp;\(j\) target to its remainder-life-ratio.<br>
+          On the other hand, we need add the concept of aggressivity of targets to object function. 
+          So, we also need a value damage-density, damage per unit time. The damage-density of type &nbsp;\(j\) target denoted by \(dd_{j}\).
         </p>
         <h3 class="Math">Mathematical definition</h3>
         <p>After modifying our WTA problem, we obtain a new <span style="font-weight: bold;">linear integer programming problem:</span></p>
         <div class="left50" >
-          $$ \min \sum_{j=1}^{n}(dd_{j}(SV_{j}-\sum_{i=1}^{m}p_{ij}x_{ij})) $$
+          $$ \min \sum_{j=1}^{n}(dd_{j}(V_{j}-\sum_{i=1}^{m}p_{ij}x_{ij})) $$
         </div>
         <p>subject to</p>
         <div class="left50" >
@@ -87,28 +90,33 @@
           We have 6 marines, 3 firebats and 1 goliath and enemy has 5 zerglings and 3 hydralisk. More information is showed by following table:
         </p>
         <div class="ui grid">
-          <div class="eight wide column">
+          <div class="twelve wide column">
             <table class="ui celled table">
               <thead>
-                <tr><th>Weapon Type</th><th>\(Zergling\)<br>\(V_{1} = 5 ,\quad SV_{1} = 500\%\)</th><th>\(Hydralisk\)<br>\(V_{2} = 3 ,\quad SV_{2} = 300\%\)</th>
+                <tr>
+                  <th>Weapon Type</th><th>\(Zergling\)<br>\(V_{1} = 30\%\)</th><th>\(Zergling\)<br>\(V_{2} = 50\%\)</th><th>\(Zergling\)<br>\(V_{3} = 80\%\)</th><th>\(Zergling\)<br>\(V_{4} = 45\%\)</th><th>\(Zergling\)<br>\(V_{5} = 100\%\)</th>
+                  <th>\(Hydralisk\)<br>\(V_{6} = 100\%\)</th><th>\(Hydralisk\)<br>\(V_{7} = 90\%\)</th><th>\(Hydralisk\)<br>\(V_{8} = 25\%\)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>\(Marine \)<br>\(W_{1} = 6 \)</td><td>17.1%</td><td>7.5%</td></tr>
-                <tr><td>\(Firebat \)<br>\(W_{2} = 3 \)</td><td>45.7%</td><td>20.0%</td></tr>
-                <tr><td>\(Goliath \)<br>\(W_{3} = 1 \)</td><td>28.6%</td><td>12.5%</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{1} = 6 \)</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>7.5%</td><td>7.5%</td><td>7.5%</td></tr>
+                <tr><td>\(Firebat \)<br>\(W_{2} = 3 \)</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>20.0%</td><td>20.0%</td><td>20.0%</td></tr>
+                <tr><td>\(Goliath \)<br>\(W_{3} = 1 \)</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>12.5%</td><td>12.5%</td><td>12.5%</td></tr>
               </tbody>
             </table>
           </div>
-          <div class = "eight wide column"></div>
+          <div class = "four wide column"></div>
         </div>
-      <p>
-        And suppose \(dd_{1} = 5 ,\ dd_{2} = 8 \)<br><br>
-        We have,
+      <p>And suppose \(dd_{1} = 5 ,\ dd_{2} = 8 \)</p> 
+      <div class="ui button" style="padding: 5px; border: 0px; font-family: Times New Roman, Times, serif;" onclick="showBattlefield()">show battlefield</div>
+      <br>
+      <img id="Battlefield" src="img/WTAProblem_02.svg" style="width: auto; height: auto; visibility: hidden; display: none;">
+      <br>
+      <p>We have,</p>
       </p>
       <div style="width: 70%;">
-        $$ \min \quad 5 \cdot (5.00 - 0.171x_{11} - 0.457x_{21} - 0.286x_{31}) 
-        + 8 \cdot (3.00 - 0.075x_{12} - 0.2x_{22} - 0.125x_{32})$$
+        $$ \min \quad 5 \cdot (0.30 - 0.171x_{11} - 0.457x_{21} - 0.286x_{31}) 
+        + \dots + 8 \cdot (0.25 - 0.075x_{12} - 0.2x_{22} - 0.125x_{32})$$
       </div>
       <p>subject to</p>
       <div class="left50">
@@ -139,5 +147,21 @@
       </ul>
       <div class="two wide column"></div>
     </div>
+    <script>
+      $("#Battlefield").css("transition", "fade down");
+      var BattleVisible = false;
+      function showBattlefield() {
+          var BattleImg = $("#Battlefield");
+          if (BattleVisible){
+              BattleImg.css("visibility", "hidden");
+              BattleImg.css("display", "none");
+              BattleVisible = false;
+          } else {
+              BattleImg.css("visibility", "visible");
+              BattleImg.css("display", "block");
+              BattleVisible = true;
+          }
+      }
+    </script>
   </body>
 </html>
