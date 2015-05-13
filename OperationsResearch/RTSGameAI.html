@@ -13,7 +13,7 @@
     <div class="ui grid">
       <div class="two wide column"></div>
       <div class="twelve wide column" style="background-color: #FFFFFF;">
-        <div class="MathUpdate">Operating Research Report v.2 &nbsp;&nbsp;&nbsp;&nbsp;Date:2015/05/11</div>
+        <div class="MathUpdate">Operating Research Report v.3 &nbsp;&nbsp;&nbsp;&nbsp;Date:2015/05/13</div>
         <h1 class="Math">Introduce to WTA problem</h1>
         <hr class="one">
         <p>WTA, Weapon target assignment </p>
@@ -116,7 +116,7 @@
       </p>
       <div style="width: 70%;">
         $$ \min \quad 5 \cdot (0.30 - 0.171x_{11} - 0.457x_{21} - 0.286x_{31}) 
-        + \dots + 8 \cdot (0.25 - 0.075x_{12} - 0.2x_{22} - 0.125x_{32})$$
+        + \dots + 8 \cdot (0.25 - 0.075x_{18} - 0.2x_{28} - 0.125x_{38})$$
       </div>
       <p>subject to</p>
       <div class="left50">
@@ -130,7 +130,13 @@
         $$
         $$
         0.171x_{11} + 0.457x_{21} + 0.286x_{31} \leq SomeRatio_{1} \\
-        0.075x_{12} + 0.2x_{22} + 0.125x_{32} \leq SomeRatio_{2} 
+        0.171x_{12} + 0.457x_{22} + 0.286x_{32} \leq SomeRatio_{2} \\
+        0.171x_{13} + 0.457x_{23} + 0.286x_{33} \leq SomeRatio_{3} \\
+        0.171x_{14} + 0.457x_{24} + 0.286x_{34} \leq SomeRatio_{4} \\
+        0.171x_{15} + 0.457x_{25} + 0.286x_{35} \leq SomeRatio_{5} \\
+        0.075x_{16} + 0.2x_{26} + 0.125x_{36} \leq SomeRatio_{6} \\
+        0.075x_{17} + 0.2x_{27} + 0.125x_{37} \leq SomeRatio_{7} \\
+        0.075x_{18} + 0.2x_{28} + 0.125x_{38} \leq SomeRatio_{8}
         $$
       </div>
       <p>Then, we can use branch and bound method to solve this problem.</p>
@@ -142,9 +148,11 @@
       <p>There are some informations that we have but not considered, for example : </p>
       <ul>
         <li>The distance between each weapons and targets.</li>
-        <li>The number of each type target. \(V_{j} \ for \ j = 1, \dots , n \)</li>
         <li>etc.</li>
       </ul>
+      <h3 class="Math">Next step</h3>
+      <p>We want to determine the value of \(SomeRatio_{j}\), and consider the distance.
+      <img src="img/WTAProblem_03.svg" style="width: auto; height: auto;">
       <div class="two wide column"></div>
     </div>
     <script>
