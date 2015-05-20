@@ -61,19 +61,19 @@
         <h3 class="Math">Modify</h3>
         <p>
           \(p_{ij}\) denote the degree of injury, a certain ratio,  when type &nbsp;\(i\) weapon attack type &nbsp;\(j\) target.
-          Every unit of enemy are a kind of type target, and we define the value of type &nbsp;\(j\) target to its remainder-life-ratio.<br>
+          Every unit of enemy are a kind of type target, and we define the value of type &nbsp;\(j\) target to its remainder-life.<br>
           On the other hand, we need add the concept of aggressivity of targets to object function. 
           So, we also need a value damage-density, damage per unit time. The damage-density of type &nbsp;\(j\) target denoted by \(dd_{j}\).
         </p>
         <h3 class="Math">Mathematical definition</h3>
         <p>After modifying our WTA problem, we obtain a new <span style="font-weight: bold;">linear integer programming problem:</span></p>
         <div class="left50" >
-          $$ \min \sum_{j=1}^{n}(dd_{j}(V_{j}-\sum_{i=1}^{m}p_{ij}x_{ij})) $$
+          $$ \min \sum_{j=1}^{n}(dd_{j}\frac{(V_{j}-\sum_{i=1}^{m}p_{ij}x_{ij})}{V_{j}.life}) $$
         </div>
         <p>subject to</p>
         <div class="left50" >
-          $$ \sum_{j=1}^{n}x_{ij} \leq W_{i} , \ for \ i = 1, ... , m. $$
-          $$ x_{ij} \geq 0 \ and \ integer \ for \ i = 1, \dots , m \ and \ j = 1, \dots , n. $$
+          $$ \sum_{j=1}^{n}x_{ij} \leq 1 , \ for \ i = 1, ... , m. $$
+          $$ x_{ij} = 0 \ or \ 1 \ for \ i = 1, \dots , m \ and \ j = 1, \dots , n. $$
         </div>
         <p>More stringent constraints</p>
         <div class="left50" >
@@ -94,14 +94,21 @@
             <table class="ui celled table">
               <thead>
                 <tr>
-                  <th>Weapon Type</th><th>\(Zergling\)<br>\(V_{1} = 30\%\)</th><th>\(Zergling\)<br>\(V_{2} = 50\%\)</th><th>\(Zergling\)<br>\(V_{3} = 80\%\)</th><th>\(Zergling\)<br>\(V_{4} = 45\%\)</th><th>\(Zergling\)<br>\(V_{5} = 100\%\)</th>
-                  <th>\(Hydralisk\)<br>\(V_{6} = 100\%\)</th><th>\(Hydralisk\)<br>\(V_{7} = 90\%\)</th><th>\(Hydralisk\)<br>\(V_{8} = 25\%\)</th>
+                  <th>Weapon Type</th><th>\(Zergling\)<br>\(V_{1} = 30\)</th><th>\(Zergling\)<br>\(V_{2} = 20\)</th><th>\(Zergling\)<br>\(V_{3} = 30\)</th><th>\(Zergling\)<br>\(V_{4} = 23\)</th><th>\(Zergling\)<br>\(V_{5} = 35\)</th>
+                  <th>\(Hydralisk\)<br>\(V_{6} = 80\)</th><th>\(Hydralisk\)<br>\(V_{7} = 72\)</th><th>\(Hydralisk\)<br>\(V_{8} = 15\)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>\(Marine \)<br>\(W_{1} = 6 \)</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>17.1%</td><td>7.5%</td><td>7.5%</td><td>7.5%</td></tr>
-                <tr><td>\(Firebat \)<br>\(W_{2} = 3 \)</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>45.7%</td><td>20.0%</td><td>20.0%</td><td>20.0%</td></tr>
-                <tr><td>\(Goliath \)<br>\(W_{3} = 1 \)</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>28.6%</td><td>12.5%</td><td>12.5%</td><td>12.5%</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{1}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{2}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{3}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{4}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{5}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Marine \)<br>\(W_{6}\)</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>\(Firebat \)<br>\(W_{7}\)</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td></tr>
+                <tr><td>\(Firebat \)<br>\(W_{8}\)</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td></tr>
+                <tr><td>\(Firebat \)<br>\(W_{9}\)</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td><td>16</td></tr>
+                <tr><td>\(Goliath \)<br>\(W_{10}\)</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td></tr>
               </tbody>
             </table>
           </div>
